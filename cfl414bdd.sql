@@ -76,7 +76,8 @@ VALUES ('programacion', 'curso de introduccion a la programacion', 14),
 );
 
 /********************************CONSULTAS************************************/
-SELECT tb_curs.nom_curs AS nom_curs, 
+ 
+SELECT tb_curs.id_curs AS id_curs,
        tb_dias.dia AS dia, 
        tb_horarios.hr_inicio AS hr_inicio, 
        tb_horarios.hr_fin AS hr_fin 
@@ -86,6 +87,16 @@ FROM tb_horarios
     JOIN tb_dias 
         ON tb_horarios.id_dia= tb_dias.id_dia
     AND nom_curs='programacion';
+
+SELECT tb_dias.dia AS dia, 
+       tb_horarios.hr_inicio AS hr_inicio, 
+       tb_horarios.hr_fin AS hr_fin,
+FROM tb_horarios 
+    JOIN tb_curs 
+        ON tb_horarios.id_curs= tb_curs.id_curs 
+    JOIN tb_dias 
+        ON tb_horarios.id_dia= tb_dias.id_dia
+    AND tb_horarios.id_curs='1';
 
 SELECT id_curs, inscriptos FROM tb_curs WHERE id_curs= ?
 
@@ -106,3 +117,15 @@ VALUES (3,1,'12:00','15:00'),
        (5,1,'9:00','12:00'),
        (5,2,'9:00','12:00');
 INSERT INTO tb_cursos
+
+SELECT tb_curs.nom_curs AS nom_curs, 
+       tb_dias.dia AS dia, 
+       tb_horarios.hr_inicio AS hr_inicio, 
+       tb_horarios.hr_fin AS hr_fin,
+       tb_curs.desc_curs AS desc_curs,
+       tb_curs.inscriptos AS inscriptos 
+       FROM tb_horarios
+            JOIN tb_curs  
+                ON tb_horarios.id_curs= tb_curs.id_curs 
+            JOIN tb_dias 
+                ON tb_horarios.id_dia= tb_dias.id_dia
