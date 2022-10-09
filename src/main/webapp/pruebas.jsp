@@ -15,25 +15,47 @@
         <ul>
             <%
                 Class.forName("com.mysql.jdbc.Driver");
-                String maxIdCurso = "SELECT MAX(id_curs) AS id FROM tb_curs";
-                String consulta1 = "INSERT INTO tb_curs(nom_curs, desc_curs) VALUES (?,?)";
-                String consulta2 = "INSERT INTO tb_horarios()";
+                String consulta1 = "SELECT tb_curs.nom_curs AS nom_curs," 
+                                  +"       tb_dias.dia AS dia," 
+                                  +"       tb_horarios.hr_inicio AS hr_inicio," 
+                                  +"       tb_horarios.hr_fin AS hr_fin,"
+                                  +"       tb_curs.desc_curs AS desc_curs,"
+                                  +"       tb_curs.inscriptos AS inscriptos "
+                                  +"FROM tb_horarios " 
+                                  +"    JOIN tb_curs " 
+                                  +"        ON tb_horarios.id_curs= tb_curs.id_curs " 
+                                  +"    JOIN tb_dias " 
+                                  +"        ON tb_horarios.id_dia= tb_dias.id_dia "
+                                  ;
+                String cDisponible = "style='color: green'";
+                String cLleno = "style='color: red'";
+                String cEspera = "style='color: yellow'";
                 Connection conexion = null;
-                PreparedStatement consultaPreparada = null;   
-                int id = 0;
+                PreparedStatement consultaCursos = null;
                 try {
                     conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/cfl414", "root", "");
-                    consultaPreparada = conexion.prepareStatement(maxIdCurso);
-                    ResultSet a = consultaPreparada.executeQuery();
-                    a.next();
-                    id = Integer.parseInt(a.getString("id"));
-                    out.print(id);
+                    consultaCursos = conexion.prepareStatement(consulta1);
+                    ResultSet listaCursos = consultaCursos.executeQuery();
+                    while (listaCursos.next()) {
+                        String color;
+                        int cant = (Integer) listaCursos.getObject("inscriptos");
+                        if (cant < 15){
+                            color="green";                    
+                        }else if ( cant > 15 && cant <= 20){
+                            color="yellow";
+                        }else{
+                            color="red";
+                        }
+                        out.println("<li style='color: " + color + "'>curso: " + listaCursos.getString("nom_curs") + "</li>");
+                        out.println("<p>detalle: " + listaCursos.getString("desc_curs") + "</br>");
+                        out.println("<p>inscriptos: " + cant + "</br>");
+                    }
+                    listaCursos.close();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    out.print(" exepcion ");
                 } finally {
                     try {
-                        consultaPreparada.close();
+                        consultaCursos.close();
                         conexion.close();
                     } catch (Exception e) {
                     }
