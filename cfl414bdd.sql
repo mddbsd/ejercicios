@@ -77,8 +77,7 @@ VALUES ('programacion', 'curso de introduccion a la programacion', 14),
 
 /********************************CONSULTAS************************************/
  
-SELECT tb_curs.id_curs AS id_curs,
-       tb_dias.dia AS dia, 
+SELECT tb_dias.dia AS dia, 
        tb_horarios.hr_inicio AS hr_inicio, 
        tb_horarios.hr_fin AS hr_fin 
 FROM tb_horarios 
@@ -86,7 +85,7 @@ FROM tb_horarios
         ON tb_horarios.id_curs= tb_curs.id_curs 
     JOIN tb_dias 
         ON tb_horarios.id_dia= tb_dias.id_dia
-    AND nom_curs='programacion';
+    AND tb_curs.id_curs=1;
 
 SELECT tb_dias.dia AS dia, 
        tb_horarios.hr_inicio AS hr_inicio, 

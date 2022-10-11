@@ -9,53 +9,26 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="./css/gal_css.css" />
+        <link rel="stylesheet" href="./css/sidebar_css.css" />
         <link rel="stylesheet" href="./css/bootstrap.min.css">
+     
         <title>Listado de cursos</title>
     </head>
+    <script src="./js/sidebar_js.js"></script>
     <body>
-        <div class="navbar navbar-expand-lg fixed-top bavbar-dark bg-primary">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="#">Navbar</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
-                      <li class="nav-item">
-                        <a class="nav-link active" href="#">Home
-                          <span class="visually-hidden">(current)</span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                      </li>
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                      </li>
-                    </ul>
-                    <form class="d-flex">
-                      <input class="form-control me-sm-2" type="text" placeholder="Search">
-                      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                  </div>
-                </div>
-            </nav>
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Clients</a>
+          <a href="#">Contact</a>
         </div>
-        <div class="gallary_container" style="margin: 200px 50px 20px 50px; background: magenta">
+          <!-- Use any element to open the sidenav -->
+          <span onclick="openNav()">abrir</span>
+
+          <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+        <div id="main">
+            <div class="gallary_container" style="background: magenta">
             <%
                 Class.forName("com.mysql.jdbc.Driver");
                 String consulta1 = "SELECT nom_curs, desc_curs, id_curs, inscriptos FROM tb_curs";
@@ -96,9 +69,11 @@
                         out.println("<div class='image_container' style='background: " + color + "'>curso: " + listaCursos.getString("nom_curs") + "</br>");
                         out.println("detalle: " + listaCursos.getString("desc_curs") + "</br>");
                         out.println("inscriptos: " + cant + "</br>");
+                        %><ul><%
                         while (listaHorarios.next()){
-                            out.print(listaHorarios.getString("dia") + "Inicia: " + listaHorarios.getString("hr_inicio") + "Fin: " + listaHorarios.getString("hr_fin"));
+                            out.print("<li>" + listaHorarios.getString("dia") + " Inicia: " + listaHorarios.getString("hr_inicio") + " Fin: " + listaHorarios.getString("hr_fin") + "</li>");
                         }
+                        %></ul><%
                         out.println("</div>");
                         listaHorarios.close();
                     }
@@ -119,6 +94,8 @@
                     }
                 }
             %>
+            </div>
         </div>
+        
     </body>
 </html>
