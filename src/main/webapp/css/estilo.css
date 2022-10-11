@@ -1,0 +1,68 @@
+#titulo {
+    color: aquamarine;
+}
+
+p.especial {
+    color: green;
+}
+
+p.texto {
+    color: tomato;
+}
+
+div p {
+    color: blue;
+}
+
+div h2, div h3{
+    color: brown;
+}
+
+* {
+    font-size: 24px;
+    color: black;
+}
+
+/*
+.color {
+    color: #ff0000;
+}
+
+.color {
+    color: rgb(0, 0, 255);
+}
+*/
+.color {
+    /*border: 5px black solid;*/
+    border-style: solid;
+    border-color: blue;
+    border-radius: 5px;
+    border-width: 10px;
+    background-color: green;
+}
+
+#fondo {
+    background-color: red;
+    opacity: 1;
+    background-image: url('../img/img1.png');
+    height: 300px;
+    background-size: contain;
+        
+}
+
+.margen {
+    text-align: center;
+    background-color: chocolate;
+    margin: 10px 20px 25px 30px;
+    padding: 30px 25px 20px 10px;
+    border: solid 2px black;
+}
+
+#partedearriba {
+    margin: 10px 20px 30px 20px;
+}
+
+.contenedor {
+    
+    margin: 0px 20px 30px 20px
+}
