@@ -11,7 +11,7 @@ CREATE TABLE tb_curs (
 CREATE TABLE tb_dias (
     id_dia int NOT NULL, 
     dia varchar(10),
-    PRIMARY KEY id_dias
+    PRIMARY KEY (id_dia)
 );
 
 CREATE TABLE tb_horarios (
@@ -53,6 +53,17 @@ values (1, 'lunes'),
        (4, 'jueves'),
        (5, 'viernes')
 ;
+
+INSERT INTO tb_curs (nom_curs, desc_curs, inscriptos) 
+VALUES ('programacion', 'curso de introduccion a la programacion', 14), 
+       ('maquillaje','maquillaje artistico', 9), 
+       ('electricidad', 'cortaste toda la loz', 20), 
+       ('costura','corte y confeccion', 9),
+       ('hoteleria','administracion de hoteles',12),
+       ('zapateria','reparacion de calzado',16)
+;
+
+
 INSERT INTO tb_horarios (id_curs, id_dia, hr_inicio, hr_fin)
 VALUES (1,1,'9:10','12:00'),
        (1,3,'9:10','12:00'),
@@ -65,19 +76,12 @@ VALUES (1,1,'9:10','12:00'),
        (4,2,'12:00','16:00'),
        (5,1,'9:00','12:00'),
        (5,2,'9:00','12:00')
-);
-INSERT INTO tb_curs (nom_curs, desc_curs, inscriptos) 
-VALUES ('programacion', 'curso de introduccion a la programacion', 14), 
-       ('maquillaje','maquillaje artistico', 9), 
-       ('electricidad', 'cortaste toda la loz', 20), 
-       ('costura','corte y confeccion', 9),
-       ('hoteleria','administracion de hoteles',12),
-       ('zapateria','reparacion de calzado',16)
-);
+;
 
 /********************************CONSULTAS************************************/
  
-SELECT tb_dias.dia AS dia, 
+SELECT tb_curs.nom_curs AS nom_curs,
+       tb_dias.dia AS dia, 
        tb_horarios.hr_inicio AS hr_inicio, 
        tb_horarios.hr_fin AS hr_fin 
 FROM tb_horarios 
@@ -128,3 +132,38 @@ SELECT tb_curs.nom_curs AS nom_curs,
                 ON tb_horarios.id_curs= tb_curs.id_curs 
             JOIN tb_dias 
                 ON tb_horarios.id_dia= tb_dias.id_dia
+
+
+CREATE TABLE tb_postulantes (
+    dni_post int NOT NULL,
+    cuil_post int NOT NULL,
+    apyn_post varchar(40),
+    email_post varchar(40) NOT NULL,
+    tel_post varchar(20),
+    prov_post varchar(40),
+    pais_post varchar(40),
+    fnac_post date,
+    edad_post int(2),
+    plans_post int(1),
+    gen_post varchar(10),
+    titulo_post varchar(20),
+    estado_post int(1)
+);
+
+CREATE TABLE tb_direccion (
+    dir_num varchar(20),
+    dir_piso int(10),
+    dir_dpto int(10),
+);
+
+CREATE TABLE tb_localidades (
+   id_local int NOT NULL,
+   nom_local varchar(20),
+
+);
+
+CREATE TABLE tb_calles (
+    id_calle int NOT NULL,
+    nom_calle varchar(20),
+);
+
