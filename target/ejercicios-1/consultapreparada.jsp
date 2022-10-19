@@ -13,13 +13,14 @@
     <body>
          <%
                 Class.forName("com.mysql.jdbc.Driver");
-                String consulta1 = "SELECT * FROM nombres WHERE curso = ?";
+                String consulta1 = "SELECT * FROM nombres WHERE curso = ? AND edad >= ?";
                 Connection conexion = null;
                 PreparedStatement consultaEjercicio = null;
                 try {
                     conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/ejerciciosclase", "root", "");
                     consultaEjercicio = conexion.prepareStatement(consulta1);
                     consultaEjercicio.setString(1, request.getParameter("curso"));
+                    consultaEjercicio.setString(2, request.getParameter("edad"));
                     ResultSet listaEjercicio = consultaEjercicio.executeQuery();
                     
                     while(listaEjercicio.next()){
