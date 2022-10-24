@@ -128,3 +128,13 @@ SELECT tb_curs.nom_curs AS nom_curs,
                 ON tb_horarios.id_curs= tb_curs.id_curs 
             JOIN tb_dias 
                 ON tb_horarios.id_dia= tb_dias.id_dia
+
+insert into alus_curs (id_alus, id_curs) 
+values ((select id_alus from alus where dni=?),
+        (select id_curs from curs where nom_curs='?'));
+
+select alus.apyn as apyn, 
+       curs.nom_curs AS nom_curs 
+from alus_curs 
+    join curs on curs.id_curs=alus_curs.id_curs 
+    join alus on alus.id_alus=alus_curs.id_alus;

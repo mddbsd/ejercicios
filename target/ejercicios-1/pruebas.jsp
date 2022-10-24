@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="./css/gal_css.css" />
         <link rel="stylesheet" href="./css/sidebar_css.css" />
         <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/mdb.min.css">
      
         <title>Listado de cursos</title>
     </head>
@@ -43,9 +44,6 @@
                                               +"    JOIN tb_dias " 
                                               +"        ON tb_horarios.id_dia= tb_dias.id_dia "
                                               +"    AND tb_curs.id_curs=?";
-                String cDisponible = "style='color: green'";
-                String cLleno = "style='color: red'";
-                String cEspera = "style='color: yellow'";
                 Connection conexion = null;
                 PreparedStatement consultaCursos = null;
                 PreparedStatement consultaHorarios = null;
@@ -60,21 +58,35 @@
                         String color;
                         int cant = (Integer) listaCursos.getObject("inscriptos");
                         if (cant < 15){
-                            color="green";                    
+                            color="0, 183, 74, 0.78";//verde                   
                         }else if (cant > 15 && cant <= 20){
-                            color="yellow";
+                            color="255, 252, 127, 0.52";//amarillo
                         }else{
-                            color="red";
+                            color="249, 49, 84, 0.34";//rojo
                         }
-                        out.println("<div class='image_container' style='background: " + color + "'>curso: " + listaCursos.getString("nom_curs") + "</br>");
+                        /*out.println("<div class='bg-image hover-overlay' style='background: " + color + "'>curso: " + listaCursos.getString("nom_curs") + "</br>");
                         out.println("detalle: " + listaCursos.getString("desc_curs") + "</br>");
                         out.println("inscriptos: " + cant + "</br>");
-                        %><ul><%
                         while (listaHorarios.next()){
                             out.print("<li>" + listaHorarios.getString("dia") + " Inicia: " + listaHorarios.getString("hr_inicio") + " Fin: " + listaHorarios.getString("hr_fin") + "</li>");
-                        }
-                        %></ul><%
-                        out.println("</div>");
+                        }            
+                        out.println("</div>");*/
+                        %>
+                        <div class="bg-image ripple" data-mdb-ripple-color="light">
+                          <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/053.webp" class="w-100" />
+                          <a href="#!">
+                            <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+                              <div class="d-flex justify-content-center align-items-center h-100">
+                                <p class="text-white mb-0"><%out.print(listaCursos.getString("nom_curs"));%></p>
+                              </div>
+                            </div>
+                            <div class="hover-overlay">
+                              <div class="mask" style="background-color: rgba(<%out.print(color);%>)"></div>
+                            </div>
+                          </a>
+                        </div>
+                           
+                        <%
                         listaHorarios.close();
                     }
                     
@@ -96,6 +108,18 @@
             %>
             </div>
         </div>
-        
-    </body>
+
+<div class="bg-image hover-overlay">
+  <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/053.webp" class="w-100" />
+  <div
+    class="mask"
+    style="
+      background: linear-gradient(
+        45deg,
+        rgba(18, 102, 241, 0.5),
+        rgba(18, 102, 241, 0.5) 100%
+      );
+    "
+  ></div>
+</div>
 </html>
